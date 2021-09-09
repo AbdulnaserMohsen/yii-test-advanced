@@ -72,7 +72,6 @@ class CompanyController extends Controller
     public function actionCreate()
     {
         $model = new Company();
-        if($this->request->isAjax){return $this->asJson(['aa'=>'aa']);}
         if ($this->request->isPost) 
         {
             //echo UploadedFile::getInstanceByName('logo_file')->getExtension();
@@ -101,16 +100,29 @@ class CompanyController extends Controller
                                         ->save();
                         return $this->redirect(['view', 'id' => $model->id]);
                     }
+                    else {
+                        $model->loadDefaultValues();
+                    }
+                }
+                else {
+                    $model->loadDefaultValues();
                 }
             }
             
         } else {
             $model->loadDefaultValues();
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if($this->request->isPjax )
+        {
+            return $this->renderAjax('_form',['model' => $model,'form_action'=>'create',]);
+        }
+        else
+        {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        
     }
 
     /**

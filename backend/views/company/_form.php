@@ -14,22 +14,18 @@ use yii\widgets\Pjax;
 
 <div class="company-form">
 
-        <?php 
-        if($model->isNewRecord())
-        { 
-            $form = ActiveForm::begin([
-                'action' => Url::to('create'),
-                'options' => 
-                [
-                    'enctype' => 'multipart/form-data',
-                    'data-pjax'=>true,
-                ]
-            ]); 
-        }
-        else
-        {
-            $form = ActiveForm::begin(); 
-        }
+        <?php  
+            if(isset($form_action) ) { $url = Url::to('/advanced/backend/web/company/'.$form_action,true); }
+            else { $url = '';};
+            //echo $url;
+            $form = ActiveForm::begin(['action' => $url,'id'=>'form-id',
+            'options' => 
+            [
+                
+                'enctype' => 'multipart/form-data',
+                'data' => ['pjax' => true]
+            ]]); 
+        
         ?>
 
             <?= $form->field($model, 'name')->textInput(['autofocus' => true,'maxlength' => true]) ?>
