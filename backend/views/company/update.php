@@ -13,9 +13,10 @@ $this->params['breadcrumbs'][] = 'Update';
 <div class="company-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?php 
+        $data['model'] = $model;
+        $data['colors'] = $colors;
+        echo $this->render('_form', $data); 
+    ?>
 
 </div>

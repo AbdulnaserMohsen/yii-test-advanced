@@ -22,7 +22,9 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-widget-select2": "@dev",
         "yii2mod/yii2-rbac": "*",
-        "aryelds/yii2-sweet-alert": "@dev"
+        "aryelds/yii2-sweet-alert": "@dev",
+        "wbraganca/yii2-dynamicform": "*",
+        "kartik-v/yii2-grid": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

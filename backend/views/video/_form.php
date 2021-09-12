@@ -20,7 +20,7 @@ use yii\bootstrap5\ActiveForm;
         <div class="col-md-8">
 
             <?php echo $form->errorSummary($model);  ?>
-            <?php echo print_r($model->getErrors());  ?>
+            <?php //echo print_r($model->getErrors());  ?>
 
             <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

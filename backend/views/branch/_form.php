@@ -21,13 +21,13 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'status')->dropDownList([ 'active' => 'Active', 'inactive' => 'Inactive', ], ['prompt' => 'status']) ?>
 
-    <?php echo $form->field($model, 'company_id')->dropDownList( ArrayHelper::map($companies,'id','name'), ['prompt' => 'company']) ?>
+    <?php //echo $form->field($model, 'company_id')->dropDownList( ArrayHelper::map($companies,'id','name'), ['prompt' => 'company']) ?>
         
     <?php 
         echo $form->field($model, 'company_id')->widget(Select2::classname(), [
             'data' => ArrayHelper::map($companies,'id','name'),
             'language' => 'en',
-            'options' => ['placeholder' => 'Select a state ...'],
+            'options' => ['placeholder' => 'Select Company'],
             'pluginOptions' => [
                 'allowClear' => true
             ],

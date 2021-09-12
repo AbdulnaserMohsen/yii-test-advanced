@@ -33,7 +33,12 @@ use Imagine\Image\Box;
  */
 class Company extends \yii\db\ActiveRecord
 {
+    /**
+     * @var array to save colors  \backend\models\Colors
+    */
+    public $colors;
     public $logo_file;/**@var uploadedFile instance */
+    
     /**
      * {@inheritdoc}
      */
@@ -60,7 +65,7 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'address','start_date', 'status'], 'required'],
+            [['name', 'email', 'address','start_date', 'status','colors'], 'required'],
             [['created_at', 'updated_at'], 'safe'], 
             [['status'], 'string'],
             ['status', 'in', 'range' => ['active','inactive']],
@@ -71,7 +76,17 @@ class Company extends \yii\db\ActiveRecord
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['logo_file'],'image','skipOnEmpty' => !$this->isNewRecord, 'extensions' => 'png, jpg'],
+            [['colors'],'exist', 'skipOnEmpty' => false, 'targetClass' => Colors::className(), 'targetAttribute' => 'id','allowArray'=>true,'message'=>'this color is not valid'],
+            [['start_date'], 'validateDate','skipOnEmpty' => false, 'skipOnError' => false],
         ];
+    }
+
+    public function validateDate($attribute, $params, $validator)
+    {
+        if ($this->$attribute > date('Y-m-d') ) 
+        {
+            $validator->addError($this, $attribute, 'The value "{value}" is not acceptable for {attribute}.');
+        }
     }
 
     /**

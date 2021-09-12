@@ -3,7 +3,9 @@
 namespace backend\controllers;
 
 use backend\models\Branch;
+use backend\models\Colors;
 use backend\models\Company;
+use backend\models\CompanyColors;
 use backend\models\CompanySearch;
 use yii\web\UploadedFile;
 use yii\web\Controller;
@@ -13,6 +15,10 @@ use Yii;
 
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use yii\bootstrap5\ActiveForm;
+use yii\helpers\VarDumper;
+use yii\web\Response;
+
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
@@ -44,10 +50,12 @@ class CompanyController extends Controller
     {
         $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $data['colors'] = Colors::find()->select(['id','name'])->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'colors' => $data['colors'],
         ]);
     }
 
@@ -72,6 +80,11 @@ class CompanyController extends Controller
     public function actionCreate()
     {
         $model = new Company();
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) 
+        {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
         if ($this->request->isPost) 
         {
             //echo UploadedFile::getInstanceByName('logo_file')->getExtension();
@@ -98,6 +111,28 @@ class CompanyController extends Controller
                         Image::getImagine()->open($logoPath)
                                         ->thumbnail(new Box(1280,1280))
                                         ->save();
+                        
+                        //$companyColors =[];
+                        //$array=[];
+                        foreach($model->colors as $key=> $color)
+                        {
+                            $companyColors   = new CompanyColors();
+                            $companyColors->color_id = $color;
+                            $companyColors->company_id = $model->id;
+                            $companyColors->save();
+
+                            //$array[]=[$color,$model->id];
+                        }
+                        //if(CompanyColors::validateMultiple($companyColors))
+                        {
+                            //Yii::$app->db->createCommand()->batchInsert('company_colors',['color_id','company_id'],$array);
+                        }
+                        // else
+                        // {
+                        //     echo "error";
+                        //     exit;
+                        // }
+
                         return $this->redirect(['view', 'id' => $model->id]);
                     }
                     else {
@@ -118,9 +153,10 @@ class CompanyController extends Controller
         }
         else
         {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            $data['model'] = $model;
+            $data['colors'] = Colors::find()->select(['id','name'])->all();
+            
+            return $this->render('create', $data);
         }
         
     }
@@ -172,9 +208,9 @@ class CompanyController extends Controller
             
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        $data['model'] = $model;
+        $data['colors'] = Colors::find()->select(['id','name'])->all();
+        return $this->render('update', $data);
     }
 
     /**
@@ -211,17 +247,19 @@ class CompanyController extends Controller
     {
 
         $branches = Branch::find()->andWhere(['company_id'=>$id])->all();
-        $options = '';
-        //echo($branches);
-        //exit;
-        foreach($branches as $branch)
-        {
-            //print_r($branch)."<br>";
-            $options .= "<option value='".$branch->id."'>".$branch->name."</option>";
-        }
-        //echo($options);
-        //exit;
+        
+        //$options = '';
+        // //echo($branches);
+        // //exit;
+        // foreach($branches as $branch)
+        // {
+            // //print_r($branch)."<br>";
+        //     $options .= "<option value='".$branch->id."'>".$branch->name."</option>";
+        // }
+        // //echo($options);
+        // //exit;
 
-        return $options;
+        //return $options;
+        return $this->asJson($branches);
     }
 }
