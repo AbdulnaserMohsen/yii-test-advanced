@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $this->render('_form', [
                                     'model' => $model,
                                     'form_action'=>'create',
-                                    'colors' => $colors
+                                    'colors' => $colors,
                                 ]) ?>
                             <?php Pjax::end(); ?>
                     </div>

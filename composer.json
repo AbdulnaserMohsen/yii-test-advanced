@@ -24,7 +24,8 @@
         "yii2mod/yii2-rbac": "*",
         "aryelds/yii2-sweet-alert": "@dev",
         "wbraganca/yii2-dynamicform": "*",
-        "kartik-v/yii2-grid": "dev-master"
+        "kartik-v/yii2-grid": "dev-master",
+        "philippfrenzel/yii2fullcalendar": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

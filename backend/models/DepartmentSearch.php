@@ -11,6 +11,9 @@ use backend\models\Department;
  */
 class DepartmentSearch extends Department
 {
+    /**  */
+    public $global_search;
+    
     public function attributes()
     {
       // add related fields to searchable attributes
@@ -24,8 +27,8 @@ class DepartmentSearch extends Department
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by'], 'integer'],
-            [['name', 'status', 'created_at', 'updated_at', 'company.name','branch.name'], 'safe'],
+            //[['id', 'created_by', 'updated_by'], 'integer']
+            [['name', 'status', 'created_at', 'updated_at', 'company.name','branch.name','global_search'], 'safe'],
         ];
     }
 
@@ -76,19 +79,19 @@ class DepartmentSearch extends Department
         ];
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'branch_id' => $this->branch_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-        ]);
+        // $query->andFilterWhere([
+        //     'id' => $this->id,
+        //     'branch_id' => $this->branch_id,
+        //     'created_at' => $this->created_at,
+        //     'updated_at' => $this->updated_at,
+        //     'created_by' => $this->created_by,
+        //     'updated_by' => $this->updated_by,
+        // ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['LIKE', 'company.name', $this->getAttribute('company.name')])
-            ->andFilterWhere(['LIKE', 'branch.name', $this->getAttribute('branch.name')]);
+        $query->orFilterWhere(['like', 'departments.name', $this->global_search])
+            ->orFilterWhere(['like', 'departments.status', $this->global_search])
+            ->orFilterWhere(['LIKE', 'company.name', $this->global_search])
+            ->orFilterWhere(['LIKE', 'branch.name', $this->global_search]);
 
         return $dataProvider;
     }

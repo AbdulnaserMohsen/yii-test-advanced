@@ -80,11 +80,7 @@ class CompanyController extends Controller
     public function actionCreate()
     {
         $model = new Company();
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) 
-        {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
+
         if ($this->request->isPost) 
         {
             //echo UploadedFile::getInstanceByName('logo_file')->getExtension();
@@ -149,7 +145,8 @@ class CompanyController extends Controller
         }
         if($this->request->isPjax )
         {
-            return $this->renderAjax('_form',['model' => $model,'form_action'=>'create',]);
+            $colors = Colors::find()->select(['id','name'])->all();
+            return $this->renderAjax('_form',['model' => $model,'form_action'=>'create','colors'=>$colors]);
         }
         else
         {

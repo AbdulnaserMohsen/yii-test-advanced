@@ -1,7 +1,9 @@
 <?php
 
+use backend\models\SubCategorySearch;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\CategorySearch */
@@ -20,20 +22,50 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+        'export' => false,
+        'pjax' => true,
+        'showPageSummary' => true,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="fas fa-layer-group"></i> Categories </h3>',
+            'type'=>'success',
+            'before'=>Html::a('<i class="fas fa-plus"></i> Create Category', ['create'], ['class' => 'btn btn-success']),
+            'after'=>Html::a('<i class="fas fa-redo"></i> Reset Grid', ['index'], ['class' => 'btn btn-info']),
+            'footer'=>false
+        ],
+        'columns' => 
+        [
+            [
+                'class' => '\kartik\grid\ExpandRowColumn',
+                'value' => function($model,$key,$index,$column)
+                {
+                    return GridView::ROW_COLLAPSED;
+                },
+                'detail'=> function($model,$key,$index,$column)
+                {
+                    $searchModel = new SubCategorySearch();
+                    $searchModel->category_id = $model->id;
+                    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                    return Yii::$app->controller->renderPartial('_sub_category_item',[
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                    ]);
+                },
+            ],     
             'id',
             'name',
             'created_at',
             'updated_at',
-
+            
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        
+
     ]); ?>
+    <?php Pjax::end(); ?>
 
 
 </div>

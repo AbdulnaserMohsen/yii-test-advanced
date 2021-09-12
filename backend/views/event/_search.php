@@ -4,18 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\DepartmentSearch */
+/* @var $model backend\models\EventSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="department-search">
+<div class="event-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'global_search') ?>
+    <?= $form->field($model, 'id') ?>
+
+    <?= $form->field($model, 'title') ?>
+
+    <?= $form->field($model, 'description') ?>
+
+    <?= $form->field($model, 'created_at') ?>
+
+    <?= $form->field($model, 'updated_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

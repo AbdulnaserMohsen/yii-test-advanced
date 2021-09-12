@@ -15,6 +15,16 @@ return [
         'Setting' => [
             'class' => 'backend\modules\settings\Setting',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+            'bsVersion'=>'5.1.0',
+
+            // enter optional module parameters below - only if you need to  
+            // use your own export download action or custom translation 
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
+        ],
     ],
     'components' => [
         'request' => [

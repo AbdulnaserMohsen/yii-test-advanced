@@ -44,7 +44,7 @@ use yii\widgets\Pjax;
                         'options' => ['placeholder' => 'Select Date', 
                                         'class' => 'form-control'],
                         'pluginOptions' => [
-                            'format' => 'yyyy-m-d',
+                            'format' => 'yyyy-mm-dd',
                             'todayHighlight' => true
                         ]
                     ]
