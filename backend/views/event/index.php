@@ -20,21 +20,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php 
+        // echo GridView::widget([
+        //     'dataProvider' => $dataProvider,
+        //     'filterModel' => $searchModel,
+        //     'columns' => [
+        //         ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'title',
-            'description',
-            'created_at',
-            'updated_at',
+        //         'id',
+        //         'title',
+        //         'description',
+        //         'created_at',
+        //         'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+        //         ['class' => 'yii\grid\ActionColumn'],
+        //     ],
+        // ]); 
+    ?>
+
+<?php 
+    echo edofre\fullcalendar\Fullcalendar::widget([
+      'events' => $events,  
+    ]);
+?>
 
 
 </div>
