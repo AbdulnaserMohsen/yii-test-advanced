@@ -25,7 +25,8 @@
         "aryelds/yii2-sweet-alert": "@dev",
         "wbraganca/yii2-dynamicform": "*",
         "kartik-v/yii2-grid": "dev-master",
-        "edofre/yii2-fullcalendar": "V1.0.11"
+        "edofre/yii2-fullcalendar": "V1.0.11",
+		"philippfrenzel/yii2fullcalendar":"2.5.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

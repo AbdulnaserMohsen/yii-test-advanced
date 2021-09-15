@@ -16,6 +16,9 @@ $this->title = 'Companies';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="company-index">
+    <?php echo Yii::$app->myComponent->hello(); ?>
+
+    <?php echo Yii::$app->myComponent->currencyConverter('egp','usd',50); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -53,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format'=>'raw',
                         'value' => function($data)
                                 {
-                                    $url = \yii\helpers\Url::to('advanced/backend/web/'.$data->logo,true);
+                                    $url = \yii\helpers\Url::to($data->logo,true);
                                     return Html::img($url, ['alt'=>'myImage','width'=>'70','height'=>'50']);
                                     //return Html::img(Yii::getAlias('@backend/web/').$data['logo']);
                                 }

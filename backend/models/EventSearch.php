@@ -18,7 +18,7 @@ class EventSearch extends Event
     {
         return [
             [['id', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['title', 'description', 'date'], 'safe'],
         ];
     }
 
@@ -59,6 +59,7 @@ class EventSearch extends Event
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'date' => $this->date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

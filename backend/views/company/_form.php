@@ -16,7 +16,7 @@ use yii\widgets\Pjax;
 <div class="company-form">
 
         <?php  
-            if(isset($form_action) ) { $url = Url::to('/advanced/backend/web/company/'.$form_action,true); }
+            if(isset($form_action) ) { $url = Url::to('company/'.$form_action,true); }
             else { $url = '';};
             //echo $url;
             $form = ActiveForm::begin(['action' => $url,'id'=>'form-id',

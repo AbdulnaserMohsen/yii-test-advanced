@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "event".
@@ -10,6 +11,7 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property string $description
+ * @property string $date
  * @property int $created_at
  * @property int $updated_at
  */
@@ -22,14 +24,23 @@ class Event extends \yii\db\ActiveRecord
     {
         return 'event';
     }
-
+    public function behaviors()
+    {
+        return
+        [
+            [
+              'class' => TimestampBehavior::class,
+            ]
+        ];
+    }
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['title', 'description', 'created_at', 'updated_at'], 'required'],
+            [['title', 'description', 'date',], 'required'],
+            [['date'], 'safe'],
             [['created_at', 'updated_at'], 'integer'],
             [['title', 'description'], 'string', 'max' => 255],
         ];
@@ -44,6 +55,7 @@ class Event extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'description' => 'Description',
+            'date' => 'Date',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

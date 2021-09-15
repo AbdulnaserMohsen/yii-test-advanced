@@ -6,8 +6,11 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'cache' => [
+        'cacheFile' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'cacheApp' => [
+            'class' => 'yii\caching\DummyCache',
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
@@ -27,6 +30,9 @@ return [
                 ],
             ],
         ],
+        'myComponent' =>[
+            'class' => 'backend\components\MyComponent',
+        ]
     ],
     'modules' => [
         'rbac' => [

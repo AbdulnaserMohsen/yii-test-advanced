@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use backend\models\Event;
 use backend\models\EventSearch;
+use edofre\fullcalendar\models\Event as edofreEvent;
+use yii2fullcalendar\models\Event as philipEvent;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,16 +39,28 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
-        //$searchModel = new EventSearch();
-        //$dataProvider = $searchModel->search($this->request->queryParams);
+        // $searchModel = new EventSearch();
+        // $dataProvider = $searchModel->search($this->request->queryParams);
 
         $events = Event::find()->all();
+        $cal_events = array();
+        foreach($events as $event)
+        {
+            $cal_event = new philipEvent();
+            $cal_event->id = $event->id;
+            $cal_event->title = $event->title;
+            $cal_event->start = $event->date;
+            
+            $cal_events[] = $cal_event;
+        }
  
         return $this->render('index', [
-            'events' => $events,
+            //'events' => $events,
+            'events' => $cal_events,
             //'searchModel' => $searchModel,
             //'dataProvider' => $dataProvider,
         ]);
+
     }
 
     /**
@@ -73,7 +87,8 @@ class EventController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                //return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();

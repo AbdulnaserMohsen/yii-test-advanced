@@ -15,6 +15,9 @@ return [
         'Setting' => [
             'class' => 'backend\modules\settings\Setting',
         ],
+        'admin-panel' => [
+            'class' => 'backend\modules\admin\AdminPanel',
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module',
             'bsVersion'=>'5.1.0',
