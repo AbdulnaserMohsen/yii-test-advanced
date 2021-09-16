@@ -11,7 +11,9 @@ class AdminAsset extends AssetBundle
 {
     public $basePath = '@backend/modules/admin/web';
     public $baseUrl = '@web/admin_web/';
+    
     public $css = [
+        'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css',
         'https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css',
         //'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
         'plugins/fontawesome-free/css/all.min.css',
@@ -30,7 +32,7 @@ class AdminAsset extends AssetBundle
         'https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/js/adminlte.min.js',
         // 'plugins/jquery/jquery.min.js',
         // 'plugins/jquery-ui/jquery-ui.min.js',
-        // 'plugins/bootstrap/js/bootstrap.bundle.min.js',
+        'plugins/bootstrap/js/bootstrap.bundle.min.js',
         // 'plugins/chart.js/Chart.min.js',
         // 'plugins/sparklines/sparkline.js',
         // 'plugins/jqvmap/jquery.vmap.min.js',
@@ -46,7 +48,7 @@ class AdminAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset',
+        //'yii\bootstrap5\BootstrapAsset',
 
     ];
 }

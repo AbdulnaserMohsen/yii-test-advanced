@@ -64,7 +64,7 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-    
+
     /**
      * Login action.
      *
@@ -76,7 +76,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $this->layout = 'auth';
+        $this->layout = 'blank';
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {

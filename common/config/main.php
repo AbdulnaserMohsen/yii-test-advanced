@@ -38,6 +38,7 @@ return [
         'rbac' => [
             'class' => 'yii2mod\rbac\Module',
         ],
+        
     ],
     //'language'=>'ar-EG',
 ];

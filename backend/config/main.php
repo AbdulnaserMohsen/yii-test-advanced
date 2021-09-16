@@ -17,6 +17,7 @@ return [
         ],
         'admin-panel' => [
             'class' => 'backend\modules\admin\AdminPanel',
+            
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module',

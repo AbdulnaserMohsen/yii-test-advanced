@@ -6,9 +6,10 @@
 use backend\modules\admin\assets\AdminAsset;
 use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap5\Html;
+
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Html;
 
 AdminAsset::register($this);
 ?>
