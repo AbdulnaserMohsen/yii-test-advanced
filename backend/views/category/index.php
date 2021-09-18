@@ -54,9 +54,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                     ]);
                 },
-            ],     
-            'id',
-            'name',
+            ],
+
+            //'id',
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class'=> '\kartik\grid\EditableColumn',
+                'attribute' => 'name',
+                'editableOptions' => function ($model, $key, $index) 
+                {
+                    return 
+                    [
+                        //'asPopover' => false,
+                        'formOptions' => [
+                        'action' => yii\helpers\Url::toRoute('/category/update/?id='.$model->id), 
+                        ]
+                    ];
+                },
+
+            ],
             'created_at',
             'updated_at',
             

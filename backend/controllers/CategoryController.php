@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use Yii;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\web\Response;
 
 /**
@@ -149,6 +150,36 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
         $sub_categories = $model->subCategories;
 
+        if(Yii::$app->request->post('hasEditable'))
+        {
+            $posted =[];
+            foreach($this->request->post('Category') as $cat)
+            {
+                //print_r ($cat);
+                $posted = $cat;
+            }
+            $toload['Category'] = $posted; 
+            //print_r ($toload);
+            if($model->load($toload))
+            {
+                if($model->validate())
+                {
+                    $model->save();
+                    // $message= Json::encode(['message'=>'Updated Successfully']);
+                    // echo $message;
+                }
+                else
+                {
+                    return Json::encode(['message'=>'Not Valid']);    
+                }
+            }
+            else
+            {
+                return Json::encode(['message'=>'Not Loaded']);    
+            }
+            
+        }
+
         if ($this->request->isPost && $model->load($this->request->post()) ) 
         {
             $oldIDs = ArrayHelper::map($sub_categories, 'id', 'id');
@@ -205,7 +236,6 @@ class CategoryController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
             'sub_categories' => (empty($sub_categories)) ? [new SubCategory()] : $sub_categories,

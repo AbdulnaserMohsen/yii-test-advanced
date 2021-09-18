@@ -8,5 +8,5 @@ return [
     'user.passwordMinLength' => 8,
 
     'frontendUrl'=>'http://localhost:8080/advanced/frontend/web/',
-    'bsVersion' =>'5',
+    'bsVersion' =>'5.x',
 ];
