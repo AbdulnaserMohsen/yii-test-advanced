@@ -120,14 +120,18 @@ class VideoController extends Controller
 
     public function actionHistory()
     {
-      $data['video'] = Yii::$app->db->createCommand('
-        SELECT MAX(created_at) as created_at ,video_id,user_id 
-        FROM video_view 
-        WHERE user_id = :userId 
-        GROUP BY video_id
-        ORDER By created_at DESC')->bindValue(":userId", Yii::$app->user->id)
-      ->queryAll();
-      foreach($data['video'] as $v)
+      // $data['video'] = Yii::$app->db->createCommand('
+      //   SELECT MAX(created_at) as created_at ,video_id,user_id 
+      //   FROM video_view 
+      //   WHERE user_id = :userId 
+      //   GROUP BY video_id
+      //   ORDER By created_at DESC')->bindValue(":userId", Yii::$app->user->id)
+      // ->queryAll();
+      $data['videos'] = Video::find()
+                              ->select('*')
+                              ->innerJoinWith('getViews');
+
+      foreach($data['videos'] as $v)
       {
         print_r($v); echo"<br>";
       }
